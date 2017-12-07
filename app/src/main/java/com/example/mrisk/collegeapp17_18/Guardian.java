@@ -4,10 +4,8 @@ package com.example.mrisk.collegeapp17_18;
  * Created by mrisk on 11/27/2017.
  */
 
-public class Guardian {
+public class Guardian extends FamilyMember{
 
-    String firstName;
-    String lastName;
 
     public Guardian(String firstName, String lastName) {
         this.firstName = firstName;

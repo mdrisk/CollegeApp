@@ -4,7 +4,7 @@ package com.example.mrisk.collegeapp17_18;
  * Created by mrisk on 11/29/2017.
  */
 
-public class FamilyMember {
+public abstract class FamilyMember {
     String firstName;
     String lastName;
 
