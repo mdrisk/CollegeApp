@@ -3,6 +3,7 @@ package com.example.mrisk.collegeapp17_18;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ public class ProfileFragment extends Fragment{
     Button button;
     DatePicker dob;
     Calendar calendar = Calendar.getInstance();
+    int WITHIN_8_YEARS = 2011;
+    String TAG = "Profile Fragment";
 
     @Nullable
     @Override
@@ -42,6 +45,7 @@ public class ProfileFragment extends Fragment{
         mLMEdit = (EditText) rootView.findViewById(R.id.lname_edit);
         button = (Button) rootView.findViewById(R.id.updateButton);
 
+
         //Setting with defualt values
         mFirst.setText(mProfile.getFirstName());
         mLast.setText(mProfile.getLastName());
@@ -53,13 +57,22 @@ public class ProfileFragment extends Fragment{
             public void onClick(View v) {
                 mFirst.setText(mFMEdit.getText());
                 mLast.setText(mLMEdit.getText());
+                try {
+                    if (dob.getYear() <= WITHIN_8_YEARS) {
+                        int day = dob.getDayOfMonth();
+                        int month = dob.getMonth();
+                        int year = dob.getYear();
 
-                int day = dob.getDayOfMonth();
-                int month = dob.getMonth();
-                int year = dob.getYear();
+                        calendar.set(year, month, day);
+                        mProfile.setDob(year, month, day);
+                    }
+                    else throw new AgeException("Who are you, Michael Kearney?");
+                } catch (AgeException e) {
+                    Log.i(TAG, e.joinMessageAndYear(e.getMessage(), dob.getYear()));
+                }
 
-                calendar.set(year, month, day);
-                mProfile.setDob(year, month, day);
+                mProfile.setFirstName(mFMEdit.getText().toString());
+                mProfile.setLastName(mLMEdit.getText().toString());
 
             }
         });
