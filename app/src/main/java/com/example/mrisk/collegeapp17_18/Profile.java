@@ -1,5 +1,6 @@
 package com.example.mrisk.collegeapp17_18;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -7,11 +8,10 @@ import java.util.Date;
  * Created by mrisk on 11/27/2017.
  */
 
-public class Profile {
+public class Profile implements Serializable {
     String firstName;
     String lastName;
     Calendar dob;
-
 
 
     public Profile(String firstName, String lastName) {

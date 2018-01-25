@@ -1,5 +1,6 @@
 package com.example.mrisk.collegeapp17_18;
 
+import android.location.Address;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,16 +13,53 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+
+
+
 
 public class ApplicantActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    String APP_ID = "0D0EDC19-51C0-4904-FF9F-1B0791B87200";
+    String ANDROID_API_KEY = "69582801-7347-2C1C-FF3F-8F9172E2A300";
+    public static final String SERVER_URL = "https://api.backendless.com";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applicant);
+
+        //This is from the Backendless site, setup for 4.0
+        Backendless.initApp( getApplicationContext(), APP_ID, ANDROID_API_KEY );
+        BackendlessUser user = new BackendlessUser();
+        user.setEmail( "mrisk@westclarkschools.com" );
+        user.setPassword( "pass1234" );
+        Backendless.UserService.register( user, new AsyncCallback<BackendlessUser>()
+        {
+            @Override
+            public void handleResponse( BackendlessUser backendlessUser )
+            {
+                System.out.println( "[ASYNC] user has been registered" );
+            }
+            @Override
+            public void handleFault( BackendlessFault backendlessFault )
+            {
+                System.out.println( "server reported an error - " + backendlessFault.getMessage() );
+            }
+        } );
+
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -70,15 +108,17 @@ public class ApplicantActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
+        int id = item.getItemId();
         Fragment contentFragment =null;
 
 
         if (id == R.id.family_member) {
             contentFragment = new GuardianFragment();
+
         } else if (id == R.id.profile) {
             contentFragment = new ProfileFragment();
+
         }
 
         if (contentFragment != null) {

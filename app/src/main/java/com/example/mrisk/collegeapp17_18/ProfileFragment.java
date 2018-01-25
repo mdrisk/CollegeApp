@@ -37,7 +37,8 @@ public class ProfileFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-        //Wireup
+
+        //Wireup XML
         mFirst = (TextView) rootView.findViewById(R.id.fname);
         mLast = (TextView) rootView.findViewById(R.id.lname);
         dob = (DatePicker) rootView.findViewById(R.id.dob);

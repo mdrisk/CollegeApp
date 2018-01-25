@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by mrisk on 11/16/2017.
  */
@@ -19,7 +21,7 @@ public class GuardianFragment extends android.support.v4.app.Fragment {
     TextView mLast;
     EditText mFMEdit;
     EditText mLMEdit;
-    Guardian mGuardian = new Guardian("Bob", "Sagat"); //hey
+    Guardian mGuardian = new Guardian("Bob", "Smith");
     Button button;
 
     @Nullable
@@ -27,6 +29,9 @@ public class GuardianFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_guardian, container, false);
+
+
+        //Wire-Up XML
         mFirst = (TextView) rootView.findViewById(R.id.fname);
         mLast = (TextView) rootView.findViewById(R.id.lname);
 
